@@ -91,7 +91,7 @@ if 'texto_caixa' not in st.session_state:
     st.session_state['texto_caixa'] = ""
 
 # Botão de automação do E-mail
-if st.button("🔄 Buscar E-mails Não Lidos do meu provedor"):
+if st.button("🔄 Buscar E-mails"):
     with st.spinner("Conectando ao seu servidor de e-mail..."):
         try:
             novos_emails = obter_texto_email(limite=5) # Traz os últimos 5
@@ -99,7 +99,7 @@ if st.button("🔄 Buscar E-mails Não Lidos do meu provedor"):
                 st.session_state['texto_caixa'] = novos_emails
                 st.success("E-mails importados com sucesso! Verifique a caixa de texto abaixo.")
             else:
-                st.info("Você não tem nenhum e-mail 'Não Lido' no momento.")
+                st.info("Sua caixa de entrada está limpa! Nenhum e-mail no momento.")
         except Exception as e:
             st.error(f"Ocorreu um erro ao buscar e-mails: {e}")
 
