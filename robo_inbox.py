@@ -73,13 +73,16 @@ def processar_inbox():
         # Olha a caixa principal
         imap.select("INBOX")
         
-        # Procura os não lidos
-        status, mensagens = imap.search(None, "UNSEEN")
+        # Procura TODOS os e-mails na caixa de entrada (Lidos e Não Lidos)
+        status, mensagens = imap.search(None, "ALL")
         if status != "OK" or not mensagens[0]:
             imap.logout()
             return
             
         ids_emails = mensagens[0].split()
+        
+        # Processa em lotes de 10 e-mails por ciclo para não estourar a cota da API do Gemini
+        ids_emails = ids_emails[-10:]
         print(f"\n[{datetime.now().strftime('%H:%M:%S')}] 🚨 {len(ids_emails)} novo(s) e-mail(s) encontrado(s)! Iniciando análise IA...")
         
         for e_id in ids_emails:

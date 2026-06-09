@@ -22,8 +22,8 @@ def obter_texto_email(limite=5):
         imap.login(usuario, senha)
         imap.select("INBOX")
 
-        # Procura e-mails NÃO LIDOS ("UNSEEN")
-        status, mensagens = imap.search(None, "UNSEEN")
+        # Procura TODOS os e-mails ("ALL") - Lidos e Não Lidos
+        status, mensagens = imap.search(None, "ALL")
         if status != "OK":
             return ""
 
